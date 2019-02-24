@@ -39,10 +39,7 @@ class DebateMonkeyHome extends StatelessWidget {
 
       body: Column(
         children: <Widget>[
-          Container(
-            child: Center(child: CurrentRound(),
-            ),
-          ),
+          CurrentRound(),
           Expanded(
             child: Container(
               child: CurrentTournamentEvents(),
@@ -96,12 +93,22 @@ class CurrentRoundState extends State<CurrentRound> {
       return new Container();
     }
 
-    else {
-      return new Container(
-        height: 40.0,
-        child: new Text("Your " + _event.type.toUpperCase() + " debate at " + _event.location + " is ready!" + _event.judges),
-      );
-    }
+    return new Container(
+        height: 80.0,
+        //child: new Text("Your " + _event.type.toUpperCase() + " debate at " + _event.location + " is ready!" + _event.judges),
+
+        child: Card(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+            ListTile(
+              title: Text("Your " + _event.type + " debate at " + _event.location + " is ready!"),
+              subtitle: Text("Debaters: " + _event.debaters + "\nJudges: " + _event.judges),
+            ),
+            ],
+          ),
+        ),
+    );
   }
 }
 

@@ -28,6 +28,16 @@ class TournamentEvent {
         judges += judge + ', ';
       }
     }
-    return judges;
+    return judges.substring(0, judges.length - 2);
+  }
+
+  get debaters {
+    String debaters = '';
+    if (_debaters != null) {
+      for (final judge in _debaters) {
+        debaters += judge + ', ';
+      }
+    }
+    return debaters.substring(0, debaters.length - 2);
   }
 }
