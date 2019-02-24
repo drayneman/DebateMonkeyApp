@@ -32,21 +32,33 @@ class DebateMonkeyHome extends StatelessWidget {
             icon: Icon(Icons.menu),
             tooltip: 'Navigation menu',
             onPressed: null),
-        title: Text('DebateMonkey'),
+        //title: Text('DebateMonkey'),
         elevation: 0.0,
         backgroundColor: Colors.transparent,
       ),
 
-      body: Container(
-        child: CurrentTournamentEvents(),
-      ),
+      body: Column(
+        children: <Widget>[
+          Container(
+            child: Center(child: CurrentRound(),
+            ),
+          ),
+          Expanded(
+            child: Container(
+              child: CurrentTournamentEvents(),
+            ),
+          ),
+        ],
+      )
     );
   }
 }
 
 class CurrentTournamentEventsState extends State<CurrentTournamentEvents> {
+  // TODO: remove sample data
+  // call fetch ??
   final List<TournamentEvent> _events = <TournamentEvent>[
-    TournamentEvent(DateTime.now(), ['Tyler', 'Danish'], ['Sam, Yehna'], null, '2902 Shadow Creek Drive', 'pf'),
+    TournamentEvent(DateTime.now(), ['Tyler', 'Danish'], ['Sam', 'Yehna'], null, '2902 Shadow Creek Drive', 'pf'),
     TournamentEvent(DateTime.now(), ['Vasa', 'Eric'], ['Ella', 'Sara'], null, 'SEEC', 'ld')];
   final TextStyle _biggerFont = const TextStyle(fontSize: 18.0);
   @override
@@ -70,9 +82,37 @@ class CurrentTournamentEventsState extends State<CurrentTournamentEvents> {
   }
 }
 
+class CurrentRoundState extends State<CurrentRound> {
+
+  final TournamentEvent _event = TournamentEvent(DateTime.now(), ['dunk', 'dl'], ['george', 'jeff'], null, 'the white house', 'pf');
+  //final TournamentEvent _event = null;
+  @override
+  Widget build(BuildContext context) {
+    return _roundInfo();
+  }
+
+  Widget _roundInfo() {
+    if (_event == null) {
+      return new Container();
+    }
+
+    else {
+      return new Container(
+        height: 40.0,
+        child: new Text("Your " + _event.type.toUpperCase() + " debate at " + _event.location + " is ready!" + _event.judges),
+      );
+    }
+  }
+}
+
 // overrides StatefulWidget createState method to route to
 // custom CurrentTournamentEventsState widget
 class CurrentTournamentEvents extends StatefulWidget {
   @override
   CurrentTournamentEventsState createState() => new CurrentTournamentEventsState();
+}
+
+class CurrentRound extends StatefulWidget {
+  @override
+  CurrentRoundState createState() => new CurrentRoundState();
 }
